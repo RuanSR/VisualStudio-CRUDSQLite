@@ -51,9 +51,6 @@ namespace CRUDSQLite.Classes
                 if (!util.CheckDBFile())
                 {
                     dbManager.CreateDataBase();
-                }
-                if (!dbManager.CheckDB())
-                {
                     dbManager.CreateTable();
                 }
             }

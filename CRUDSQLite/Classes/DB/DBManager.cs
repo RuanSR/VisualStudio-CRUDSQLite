@@ -24,9 +24,34 @@ namespace CRUDSQLite.Classes.DB
                 throw new Exception("Erro no método GetConnection: "+ex.Message);
             }
         }
+
+        public bool GetData()
+        {
+            return false;
+        }
+        public bool InsertData()
+        {
+            return false;
+        }
+        public bool UpdateData()
+        {
+            return false;
+        }
+        public bool DeleteData()
+        {
+            return false;
+        }
+
         public void CreateDataBase()
         {
-            SQLiteConnection.CreateFile(PathSys.DBFile);
+            try
+            {
+                SQLiteConnection.CreateFile(PathSys.DBFile);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro no método CreateDataBase: "+ex.Message);
+            }
         }
         public void CreateTable()
         {
