@@ -66,7 +66,8 @@
   <ItemGroup>
     <Compile Include="Classes\DB\DBManager.cs" />
     <Compile Include="Classes\DB\Util.cs" />
-    <Compile Include="Classes\Path.cs" />
+    <Compile Include="Classes\Init.cs" />
+    <Compile Include="Classes\PathSys.cs" />
     <Compile Include="Forms\frmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
