@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CRUDSQLite.Model;
+using System;
 using System.Configuration;
 using System.Data.SQLite;
 using System.Windows.Forms;
@@ -8,10 +9,10 @@ namespace CRUDSQLite.Classes.DB
     /*
      * CLASSE RESPONSÁVEL POR GERENCIAR A LÓGICA DE CRUD.
      */
-    public class DBManager
+    public class UserRepository
     {
-        private SQLiteCommand cmd;
         private readonly string _strConn = ConfigurationManager.AppSettings["strConnection"];
+        private SQLiteCommand cmd;
         private bool tableIsAvailable;
 
         public DataGridView GetData(DataGridView gridView)
@@ -22,7 +23,7 @@ namespace CRUDSQLite.Classes.DB
                 {
                     con.Open();
                     cmd = new SQLiteCommand();
-                    cmd.CommandText = Query.querySelectAll;
+                    cmd.CommandText = Query.SelectAll;
                     cmd.Connection = con;
                     SQLiteDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -32,7 +33,7 @@ namespace CRUDSQLite.Classes.DB
                             reader.GetValue(reader.GetOrdinal("ID")),
                             reader.GetValue(reader.GetOrdinal("Nome")),
                             reader.GetValue(reader.GetOrdinal("Nascimento")),
-                            reader.GetValue(reader.GetOrdinal("RG")),
+                            reader.GetValue(reader.GetOrdinal("RU")),
                             reader.GetValue(reader.GetOrdinal("Sexo")),
                             reader.GetValue(reader.GetOrdinal("Obs"))
                         });
@@ -46,7 +47,7 @@ namespace CRUDSQLite.Classes.DB
             }
             return gridView;
         }
-        public void InsertData(string nom, string nas, string rg, char s, string obs)
+        public void NewUser(User user)
         {
             try
             {
@@ -55,12 +56,12 @@ namespace CRUDSQLite.Classes.DB
                     con.Open();
                     cmd = new SQLiteCommand();
                     cmd.Connection = con;
-                    cmd.CommandText = Query.queryInsert;
-                    cmd.Parameters.Add(new SQLiteParameter("nom", nom));
-                    cmd.Parameters.Add(new SQLiteParameter("nas", nas));
-                    cmd.Parameters.Add(new SQLiteParameter("rg", rg));
-                    cmd.Parameters.Add(new SQLiteParameter("s", s));
-                    cmd.Parameters.Add(new SQLiteParameter("obs", obs));
+                    cmd.CommandText = Query.Insert;
+                    cmd.Parameters.Add(new SQLiteParameter("nome", user.Nome));
+                    cmd.Parameters.Add(new SQLiteParameter("nascimento", user.Nascimento));
+                    cmd.Parameters.Add(new SQLiteParameter("ru", user.RU));
+                    cmd.Parameters.Add(new SQLiteParameter("sexo", user.Genero));
+                    cmd.Parameters.Add(new SQLiteParameter("obs", user.Obs));
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -69,13 +70,13 @@ namespace CRUDSQLite.Classes.DB
                 throw new Exception("Erro no método InsertData: "+ex.Message);
             }
         }
-        public bool UpdateData()
+        public void UpdateUser()
         {
-            return false;
+
         }
-        public bool DeleteData()
+        public void DeleteData()
         {
-            return false;
+
         }
         public void CreateDataBase()
         {
@@ -96,7 +97,7 @@ namespace CRUDSQLite.Classes.DB
                 {
                     con.Open();
                     cmd = new SQLiteCommand();
-                    cmd.CommandText = Query.queryCreateTable;
+                    cmd.CommandText = Query.CreateTable;
                     cmd.Connection = con;
                     cmd.ExecuteNonQuery();
                 }
@@ -114,7 +115,7 @@ namespace CRUDSQLite.Classes.DB
                 {
                     con.Open();
                     cmd = new SQLiteCommand();
-                    cmd.CommandText = Query.querySelectAll;
+                    cmd.CommandText = Query.SelectAll;
                     cmd.Connection = con;
                     SQLiteDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())

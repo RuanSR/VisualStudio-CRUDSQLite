@@ -4,12 +4,13 @@ using System.Windows.Forms;
 using System.Drawing;
 using CRUDSQLite.Forms;
 using CRUDSQLite.Classes.DB;
+using CRUDSQLite.Model;
 
 namespace CRUDSQLite
 {
     public partial class mainForm : Form
     {
-        DBManager dbManager;
+        UserRepository userRepo;
         //LOAD && CONSTRUTOR\\
         public mainForm()
         {
@@ -25,7 +26,7 @@ namespace CRUDSQLite
             try
             {
                 new Init();
-                gridViewUsers = new DBManager().GetData(gridViewUsers);
+                gridViewUsers = new UserRepository().GetData(gridViewUsers);
             }
             catch (Exception ex)
             {
@@ -54,13 +55,12 @@ namespace CRUDSQLite
         private void Tab2Componets()
         {
             txtNome = EnableHint(txtNome, "Nome completo...");
-            //txtNascimento = EnableHint(txtNascimento, "00/00/0000");
             txtRU = EnableHint(txtRU, "Registro Único, até 10 caracteres");
             txtObs = EnableHint(txtObs, "Descreva alguma observação (Opcional)");
+            cbSexo.Items.Clear();
             cbSexo.Items.Add("M");
             cbSexo.Items.Add("F");
         }
-
         //UTIL\\
         private void FocusEnter(object sender, EventArgs e)
         {
@@ -115,26 +115,22 @@ namespace CRUDSQLite
             }
             return txt;
         }
-
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
             try
             {
-                dbManager = new DBManager();
-                if (txtNome.Name != string.Empty &&
-                    txtNascimento.Text != string.Empty &&
-                    txtRU.Text != string.Empty &&
-                    cbSexo.Text != string.Empty)
-                {
-                    dbManager.InsertData(txtNome.Text, txtNascimento.Text,txtRU.Text,char.Parse(cbSexo.Text),txtObs.Text);
-                    MessageBox.Show("Adicionado com sucesso!", "OK",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                    LoadUsers();
-                    tabControl1.SelectTab(0);
-                }
-                else
-                {
-                    MessageBox.Show("Preencha tudo coretamente!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                userRepo = new UserRepository();
+                User usuario = new User(txtNome.Text, txtNascimento.Text, txtRU.Text, char.Parse(cbSexo.Text), txtObs.Text);
+
+                userRepo.NewUser(usuario);
+                MessageBox.Show("Adicionado com sucesso!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadUsers();
+                Tab2Componets();
+                tabControl1.SelectTab(0);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -144,7 +140,7 @@ namespace CRUDSQLite
         private void LoadUsers()
         {
             gridViewUsers.Rows.Clear();
-            gridViewUsers = new DBManager().GetData(gridViewUsers);
+            gridViewUsers = new UserRepository().GetData(gridViewUsers);
         }
     }
 }

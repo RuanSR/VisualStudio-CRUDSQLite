@@ -8,7 +8,7 @@ namespace CRUDSQLite.Classes
     public class Init
     {
         private Util util = new Util();
-        private DBManager dbManager;
+        private UserRepository dbManager;
         public Init()
         {
             CreateRootPathFolder();
@@ -45,7 +45,7 @@ namespace CRUDSQLite.Classes
         }
         private void CreateDBFile()
         {
-            dbManager = new DBManager();
+            dbManager = new UserRepository();
             try
             {
                 if (!util.CheckDBFile())

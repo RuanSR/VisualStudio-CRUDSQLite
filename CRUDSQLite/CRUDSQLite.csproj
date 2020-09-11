@@ -66,10 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\DB\DBManager.cs" />
-    <Compile Include="Classes\DB\Util.cs" />
-    <Compile Include="Classes\Init.cs" />
-    <Compile Include="Classes\PathSys.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\Query.cs" />
+    <Compile Include="Utils\Util.cs" />
+    <Compile Include="Utils\Init.cs" />
+    <Compile Include="Utils\PathSys.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,7 +84,7 @@
     <Compile Include="Forms\frmPrincipal.Designer.cs">
       <DependentUpon>frmPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Main\Program.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>

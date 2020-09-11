@@ -42,6 +42,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtPesquisa = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txtNascimento = new System.Windows.Forms.MaskedTextBox();
             this.cbSexo = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -55,7 +56,6 @@
             this.btnSalvar = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.sobreMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtNascimento = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewUsers)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -206,6 +206,15 @@
             this.tabPage2.Text = "Cadastro";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // txtNascimento
+            // 
+            this.txtNascimento.Location = new System.Drawing.Point(11, 106);
+            this.txtNascimento.Mask = "00/00/0000";
+            this.txtNascimento.Name = "txtNascimento";
+            this.txtNascimento.Size = new System.Drawing.Size(81, 20);
+            this.txtNascimento.TabIndex = 5;
+            this.txtNascimento.ValidatingType = typeof(System.DateTime);
+            // 
             // cbSexo
             // 
             this.cbSexo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -327,15 +336,6 @@
             this.sobreMenu.Size = new System.Drawing.Size(49, 20);
             this.sobreMenu.Text = "Sobre";
             this.sobreMenu.Click += new System.EventHandler(this.SobreMenu_Click);
-            // 
-            // txtNascimento
-            // 
-            this.txtNascimento.Location = new System.Drawing.Point(11, 106);
-            this.txtNascimento.Mask = "00/00/0000";
-            this.txtNascimento.Name = "txtNascimento";
-            this.txtNascimento.Size = new System.Drawing.Size(81, 20);
-            this.txtNascimento.TabIndex = 5;
-            this.txtNascimento.ValidatingType = typeof(System.DateTime);
             // 
             // mainForm
             // 
