@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 
 namespace CRUDSQLite.Classes.DB
 {
@@ -9,9 +10,9 @@ namespace CRUDSQLite.Classes.DB
      */
     public static class PathSys
     {
-        public static string RootPathFolder = @"C:\R.S.R Software\LabPro\CRUDSQLite";
-        public static string DBPathFolder = @"C:\R.S.R Software\LabPro\CRUDSQLite\db";
-
-        public static string DBFile = @"C:\R.S.R Software\LabPro\CRUDSQLite\db\db_sys.sqlite";
+        //public static string RootPathFolder = @"C:\R.S.R Software\LabPro\CRUDSQLite";
+        public static string RootPathFolder = ConfigurationManager.AppSettings["RootPathFolder"];
+        public static string DBPathFolder = ConfigurationManager.AppSettings["DBPathFolder"];
+        public static string DBFile = ConfigurationManager.AppSettings["DBFile"];
     }
 }
