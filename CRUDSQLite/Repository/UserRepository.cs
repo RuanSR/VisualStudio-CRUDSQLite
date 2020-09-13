@@ -47,6 +47,39 @@ namespace CRUDSQLite.Classes.DB
             }
             return gridView;
         }
+        public User GetUser(int Id)
+        {
+            try
+            {
+                using (SQLiteConnection con = new SQLiteConnection(_strConn))
+                {
+                    con.Open();
+                    cmd = new SQLiteCommand();
+                    User userDB = null;
+                    cmd.CommandText = $@"SELECT ID, Nome, Nascimento, RU, Sexo, Obs FROM User Where ID = {Id}";
+                    cmd.Connection = con;
+                    SQLiteDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        userDB = new User()
+                        {
+                            Id = int.Parse(reader.GetInt32(reader.GetOrdinal("ID")).ToString()),
+                            Nome = reader.GetString(reader.GetOrdinal("Nome")),
+                            Nascimento = reader.GetString(reader.GetOrdinal("Nascimento")),
+                            RU = reader.GetString(reader.GetOrdinal("RU")),
+                            Genero = reader.GetString(reader.GetOrdinal("Sexo")),
+                            Obs = reader.GetString(reader.GetOrdinal("Obs"))
+                        };
+                    }
+                    con.Close();
+                    return userDB;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro em GetUser: " + ex.Message);
+            }
+        }
         public void NewUser(User user)
         {
             try

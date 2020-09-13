@@ -5,16 +5,18 @@ using System.Drawing;
 using CRUDSQLite.Forms;
 using CRUDSQLite.Classes.DB;
 using CRUDSQLite.Model;
+using System.Linq.Expressions;
 
 namespace CRUDSQLite
 {
     public partial class mainForm : Form
     {
-        UserRepository userRepo;
+        private readonly UserRepository userRepo;
         //LOAD && CONSTRUTOR\\
         public mainForm()
         {
             InitializeComponent();
+            userRepo = new UserRepository();
         }
         //MENUBAR\\
         private void SobreMenu_Click(object sender, EventArgs e)
@@ -119,8 +121,7 @@ namespace CRUDSQLite
         {
             try
             {
-                userRepo = new UserRepository();
-                User usuario = new User(txtNome.Text, txtNascimento.Text, txtRU.Text, char.Parse(cbSexo.Text), txtObs.Text);
+                User usuario = new User(txtNome.Text, txtNascimento.Text, txtRU.Text, cbSexo.Text, txtObs.Text);
 
                 userRepo.NewUser(usuario);
                 MessageBox.Show("Adicionado com sucesso!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -141,6 +142,54 @@ namespace CRUDSQLite
         {
             gridViewUsers.Rows.Clear();
             gridViewUsers = new UserRepository().GetData(gridViewUsers);
+        }
+
+        private void gridViewUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int Id = int.Parse(gridViewUsers.Rows[e.RowIndex].Cells["ID"].Value.ToString());
+                var user = userRepo.GetUser(Id);
+
+                if (user == null)
+                {
+                    throw new Exception("Erro ao identificar usuario.");
+                }
+
+                if (gridViewUsers.Columns[e.ColumnIndex].Name == "btnEdit")
+                {
+
+                }
+                else if (gridViewUsers.Columns[e.ColumnIndex].Name == "btnDelete")
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao entrar na conta! Detalhes: {ex.Message}");
+            }
+        }
+
+        private void gridViewUsers_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int Id = int.Parse(gridViewUsers.Rows[e.RowIndex].Cells["ID"].Value.ToString());
+                var user = userRepo.GetUser(Id);
+
+                if (user == null)
+                {
+                    throw new Exception("Erro ao identificar usuario.");
+                }
+
+                frmUser frm = new frmUser(user);
+                frm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao entrar na conta! Detalhes: {ex.Message}");
+            }
         }
     }
 }

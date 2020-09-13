@@ -4,7 +4,11 @@ namespace CRUDSQLite.Model
 {
     public class User
     {
-        public User(string nome, string nascimento, string RU, char genero, string obs)
+        public User()
+        {
+
+        }
+        public User(string nome, string nascimento, string RU, string genero, string obs)
         {
             try
             {
@@ -37,7 +41,7 @@ namespace CRUDSQLite.Model
         public string Nome { get; set; }
         public string Nascimento { get; set; }
         public string RU { get; set; }
-        public char Genero { get; set; }
+        public string Genero { get; set; }
         public string Obs { get; set; }
 
     }
