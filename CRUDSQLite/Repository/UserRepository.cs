@@ -103,9 +103,29 @@ namespace CRUDSQLite.Classes.DB
                 throw new Exception("Erro no método InsertData: "+ex.Message);
             }
         }
-        public void UpdateUser()
+        public void UpdateUser(User user)
         {
-
+            try
+            {
+                using (SQLiteConnection con = new SQLiteConnection(_strConn))
+                {
+                    con.Open();
+                    cmd = new SQLiteCommand();
+                    cmd.Connection = con;
+                    cmd.CommandText = Query.Update;
+                    cmd.Parameters.Add(new SQLiteParameter("nome", user.Nome));
+                    cmd.Parameters.Add(new SQLiteParameter("nascimento", user.Nascimento));
+                    cmd.Parameters.Add(new SQLiteParameter("ru", user.RU));
+                    cmd.Parameters.Add(new SQLiteParameter("sexo", user.Genero));
+                    cmd.Parameters.Add(new SQLiteParameter("obs", user.Obs));
+                    cmd.Parameters.Add(new SQLiteParameter("id", user.Id));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro no método Update: " + ex.Message);
+            }
         }
         public void DeleteData()
         {

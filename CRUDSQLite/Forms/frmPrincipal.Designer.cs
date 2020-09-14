@@ -58,6 +58,7 @@
             this.btnSalvar = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.sobreMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnNovo = new System.Windows.Forms.ToolStripButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewUsers)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -325,7 +326,8 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnSalvar});
+            this.btnSalvar,
+            this.btnNovo});
             this.toolStrip1.Location = new System.Drawing.Point(3, 3);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(356, 38);
@@ -358,6 +360,16 @@
             this.sobreMenu.Size = new System.Drawing.Size(49, 20);
             this.sobreMenu.Text = "Sobre";
             this.sobreMenu.Click += new System.EventHandler(this.SobreMenu_Click);
+            // 
+            // btnNovo
+            // 
+            this.btnNovo.Image = ((System.Drawing.Image)(resources.GetObject("btnNovo.Image")));
+            this.btnNovo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNovo.Name = "btnNovo";
+            this.btnNovo.Size = new System.Drawing.Size(45, 35);
+            this.btnNovo.Text = "NOVO";
+            this.btnNovo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
             // 
             // mainForm
             // 
@@ -419,6 +431,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Obs;
         private System.Windows.Forms.DataGridViewImageColumn btnEdit;
         private System.Windows.Forms.DataGridViewImageColumn btnDelete;
+        private System.Windows.Forms.ToolStripButton btnNovo;
     }
 }
 
