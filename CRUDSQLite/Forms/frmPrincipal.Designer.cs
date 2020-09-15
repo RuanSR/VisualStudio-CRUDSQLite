@@ -31,6 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gridViewUsers = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sexo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Obs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnEdit = new System.Windows.Forms.DataGridViewImageColumn();
+            this.btnDelete = new System.Windows.Forms.DataGridViewImageColumn();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -51,14 +59,6 @@
             this.btnNovo = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.sobreMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RU = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sexo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Obs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnEdit = new System.Windows.Forms.DataGridViewImageColumn();
-            this.btnDelete = new System.Windows.Forms.DataGridViewImageColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewUsers)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -105,6 +105,75 @@
             this.gridViewUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridViewUsers_CellContentClick);
             this.gridViewUsers.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridViewUsers_CellContentDoubleClick);
             // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            this.ID.Width = 50;
+            // 
+            // Name
+            // 
+            this.Name.DataPropertyName = "Nome";
+            this.Name.HeaderText = "Nome";
+            this.Name.Name = "Name";
+            this.Name.ReadOnly = true;
+            this.Name.Width = 140;
+            // 
+            // Nas
+            // 
+            this.Nas.DataPropertyName = "Nascimento";
+            this.Nas.HeaderText = "Nascimento";
+            this.Nas.Name = "Nas";
+            this.Nas.ReadOnly = true;
+            this.Nas.Width = 75;
+            // 
+            // RU
+            // 
+            this.RU.DataPropertyName = "RU";
+            this.RU.HeaderText = "R.U";
+            this.RU.Name = "RU";
+            this.RU.ReadOnly = true;
+            this.RU.Width = 80;
+            // 
+            // Sexo
+            // 
+            this.Sexo.DataPropertyName = "Sexo";
+            this.Sexo.HeaderText = "Sexo";
+            this.Sexo.Name = "Sexo";
+            this.Sexo.ReadOnly = true;
+            this.Sexo.Visible = false;
+            this.Sexo.Width = 35;
+            // 
+            // Obs
+            // 
+            this.Obs.DataPropertyName = "Obs";
+            this.Obs.HeaderText = "Obs";
+            this.Obs.Name = "Obs";
+            this.Obs.ReadOnly = true;
+            this.Obs.Visible = false;
+            this.Obs.Width = 150;
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.HeaderText = "";
+            this.btnEdit.Image = global::CRUDSQLite.Properties.Resources.ediatar;
+            this.btnEdit.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.ReadOnly = true;
+            this.btnEdit.Width = 25;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.HeaderText = "";
+            this.btnDelete.Image = global::CRUDSQLite.Properties.Resources.decline;
+            this.btnDelete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.ReadOnly = true;
+            this.btnDelete.Width = 25;
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -146,6 +215,7 @@
             this.txtPesquisa.Name = "txtPesquisa";
             this.txtPesquisa.Size = new System.Drawing.Size(350, 20);
             this.txtPesquisa.TabIndex = 0;
+            this.txtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged);
             this.txtPesquisa.Enter += new System.EventHandler(this.TxtPesquisa_Enter);
             this.txtPesquisa.Leave += new System.EventHandler(this.TxtPesquisa_Leave);
             // 
@@ -311,75 +381,6 @@
             this.sobreMenu.Size = new System.Drawing.Size(49, 20);
             this.sobreMenu.Text = "Sobre";
             this.sobreMenu.Click += new System.EventHandler(this.SobreMenu_Click);
-            // 
-            // ID
-            // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            this.ID.Width = 50;
-            // 
-            // Name
-            // 
-            this.Name.DataPropertyName = "Nome";
-            this.Name.HeaderText = "Nome";
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
-            this.Name.Width = 140;
-            // 
-            // Nas
-            // 
-            this.Nas.DataPropertyName = "Nascimento";
-            this.Nas.HeaderText = "Nascimento";
-            this.Nas.Name = "Nas";
-            this.Nas.ReadOnly = true;
-            this.Nas.Width = 75;
-            // 
-            // RU
-            // 
-            this.RU.DataPropertyName = "RU";
-            this.RU.HeaderText = "R.U";
-            this.RU.Name = "RU";
-            this.RU.ReadOnly = true;
-            this.RU.Width = 80;
-            // 
-            // Sexo
-            // 
-            this.Sexo.DataPropertyName = "Sexo";
-            this.Sexo.HeaderText = "Sexo";
-            this.Sexo.Name = "Sexo";
-            this.Sexo.ReadOnly = true;
-            this.Sexo.Visible = false;
-            this.Sexo.Width = 35;
-            // 
-            // Obs
-            // 
-            this.Obs.DataPropertyName = "Obs";
-            this.Obs.HeaderText = "Obs";
-            this.Obs.Name = "Obs";
-            this.Obs.ReadOnly = true;
-            this.Obs.Visible = false;
-            this.Obs.Width = 150;
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.HeaderText = "";
-            this.btnEdit.Image = global::CRUDSQLite.Properties.Resources.ediatar;
-            this.btnEdit.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.ReadOnly = true;
-            this.btnEdit.Width = 25;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.HeaderText = "";
-            this.btnDelete.Image = global::CRUDSQLite.Properties.Resources.decline;
-            this.btnDelete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.ReadOnly = true;
-            this.btnDelete.Width = 25;
             // 
             // mainForm
             // 

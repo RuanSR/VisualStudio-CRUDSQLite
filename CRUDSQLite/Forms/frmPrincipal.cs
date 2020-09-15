@@ -175,7 +175,7 @@ namespace CRUDSQLite
         //METODOS\\
         private void LoadUsers()
         {
-            var dados = new UserRepository().GetData();
+            var dados = new UserRepository().GetUser();
             gridViewUsers.DataSource = dados;
         }
         private void EditarUsuario(User user)
@@ -205,6 +205,12 @@ namespace CRUDSQLite
             Usuario.RU = txtRU.Text;
             Usuario.Genero = cbSexo.Text;
             Usuario.Obs = txtObs.Text;
+        }
+
+        private void txtPesquisa_TextChanged(object sender, EventArgs e)
+        {
+            var dados = new UserRepository().GetUser(txtPesquisa.Text);
+            gridViewUsers.DataSource = dados;
         }
     }
 }

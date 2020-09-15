@@ -14,7 +14,7 @@ namespace CRUDSQLite.Classes.DB
         private readonly string _strConn = ConfigurationManager.AppSettings["strConnection"];
         private SQLiteCommand cmd;
         private bool tableIsAvailable;
-        public DataTable GetData()
+        public DataTable GetUser(string searth = "")
         {
             try
             {
@@ -23,7 +23,7 @@ namespace CRUDSQLite.Classes.DB
                     DataTable dataTable = new DataTable();
                     con.Open();
                     cmd = new SQLiteCommand();
-                    cmd.CommandText = Query.SelectAll;
+                    cmd.CommandText = Query.SelectUser(searth);
                     cmd.Connection = con;
                     SQLiteDataReader reader = cmd.ExecuteReader();
                     dataTable.Load(reader);
