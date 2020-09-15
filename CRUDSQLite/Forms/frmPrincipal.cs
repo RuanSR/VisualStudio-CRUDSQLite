@@ -1,11 +1,9 @@
 ﻿using System;
 using CRUDSQLite.Classes;
 using System.Windows.Forms;
-using System.Drawing;
 using CRUDSQLite.Forms;
 using CRUDSQLite.Classes.DB;
 using CRUDSQLite.Model;
-using System.Linq.Expressions;
 
 namespace CRUDSQLite
 {
@@ -29,7 +27,7 @@ namespace CRUDSQLite
             try
             {
                 new Init();
-                gridViewUsers = new UserRepository().GetData(gridViewUsers);
+                LoadUsers();
             }
             catch (Exception ex)
             {
@@ -129,7 +127,6 @@ namespace CRUDSQLite
                     UpdateUsuario();
                     userRepo.UpdateUser(Usuario);
                     Tab2Componets();
-                    gridViewUsers.Rows.Clear();
                     LoadUsers();
                     tabControl1.SelectTab(0);
                     Usuario = null;
@@ -158,8 +155,8 @@ namespace CRUDSQLite
         }
         private void LoadUsers()
         {
-            gridViewUsers.Rows.Clear();
-            gridViewUsers = new UserRepository().GetData(gridViewUsers);
+            var dados = new UserRepository().GetData();
+            gridViewUsers.DataSource = dados;
         }
 
         private void gridViewUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -184,7 +181,6 @@ namespace CRUDSQLite
                     if (MessageBox.Show("Realmente deseja excluir este usuário da base de dados?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         userRepo.DeleteData(Id);
-                        gridViewUsers.Rows.Clear();
                         LoadUsers();
                         MessageBox.Show("Usuário removido com sucesso!", "INFO", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     }

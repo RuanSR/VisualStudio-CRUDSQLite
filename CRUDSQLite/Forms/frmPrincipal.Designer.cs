@@ -314,6 +314,7 @@
             // 
             // ID
             // 
+            this.ID.DataPropertyName = "ID";
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
@@ -322,6 +323,7 @@
             // 
             // Name
             // 
+            this.Name.DataPropertyName = "Nome";
             this.Name.HeaderText = "Nome";
             this.Name.Name = "Name";
             this.Name.ReadOnly = true;
@@ -329,6 +331,7 @@
             // 
             // Nas
             // 
+            this.Nas.DataPropertyName = "Nascimento";
             this.Nas.HeaderText = "Nascimento";
             this.Nas.Name = "Nas";
             this.Nas.ReadOnly = true;
@@ -336,6 +339,7 @@
             // 
             // RU
             // 
+            this.RU.DataPropertyName = "RU";
             this.RU.HeaderText = "R.U";
             this.RU.Name = "RU";
             this.RU.ReadOnly = true;
@@ -343,6 +347,7 @@
             // 
             // Sexo
             // 
+            this.Sexo.DataPropertyName = "Sexo";
             this.Sexo.HeaderText = "Sexo";
             this.Sexo.Name = "Sexo";
             this.Sexo.ReadOnly = true;
@@ -351,6 +356,7 @@
             // 
             // Obs
             // 
+            this.Obs.DataPropertyName = "Obs";
             this.Obs.HeaderText = "Obs";
             this.Obs.Name = "Obs";
             this.Obs.ReadOnly = true;

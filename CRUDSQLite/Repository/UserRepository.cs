@@ -1,7 +1,9 @@
 ﻿using CRUDSQLite.Model;
 using System;
 using System.Configuration;
+using System.Data;
 using System.Data.SQLite;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace CRUDSQLite.Classes.DB
@@ -47,6 +49,30 @@ namespace CRUDSQLite.Classes.DB
             }
             return gridView;
         }
+
+        public DataTable GetData()
+        {
+            try
+            {
+                using (SQLiteConnection con = new SQLiteConnection(_strConn))
+                {
+                    DataTable dataTable = new DataTable();
+                    con.Open();
+                    cmd = new SQLiteCommand();
+                    cmd.CommandText = Query.SelectAll;
+                    cmd.Connection = con;
+                    SQLiteDataReader reader = cmd.ExecuteReader();
+                    dataTable.Load(reader);
+                    con.Close();
+                    return dataTable;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro em GetData: " + ex.Message);
+            }
+        }
+
         public User GetUser(int Id)
         {
             try
