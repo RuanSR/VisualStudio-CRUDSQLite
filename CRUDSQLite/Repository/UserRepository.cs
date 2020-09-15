@@ -127,9 +127,24 @@ namespace CRUDSQLite.Classes.DB
                 throw new Exception("Erro no método Update: " + ex.Message);
             }
         }
-        public void DeleteData()
+        public void DeleteData(int id)
         {
-
+            try
+            {
+                using (SQLiteConnection con = new SQLiteConnection(_strConn))
+                {
+                    con.Open();
+                    cmd = new SQLiteCommand();
+                    cmd.Connection = con;
+                    cmd.CommandText = Query.Delete;
+                    cmd.Parameters.Add(new SQLiteParameter("id", id));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro no método Delete: " + ex.Message);
+            }
         }
         public void CreateDataBase()
         {

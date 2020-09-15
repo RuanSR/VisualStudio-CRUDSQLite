@@ -7,5 +7,6 @@
         public static string SelectAll { get; } = @"SELECT * FROM User";
         public static string Insert { get; } = @"INSERT INTO User (Nome, Nascimento, RU, Sexo, Obs) VALUES (@nome, @nascimento,@ru,@sexo,@obs)";
         public static string Update { get; } = @"UPDATE User SET Nome=@nome, Nascimento=@nascimento, RU=@ru, Sexo=@sexo, Obs=@obs WHERE ID=@id";
+        public static string Delete { get; } = @"Delete FROM User WHERE ID=@id";
     }
 }

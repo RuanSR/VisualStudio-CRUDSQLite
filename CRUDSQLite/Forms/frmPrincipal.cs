@@ -181,7 +181,13 @@ namespace CRUDSQLite
                 }
                 else if (gridViewUsers.Columns[e.ColumnIndex].Name == "btnDelete")
                 {
-
+                    if (MessageBox.Show("Realmente deseja excluir este usuário da base de dados?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        userRepo.DeleteData(Id);
+                        gridViewUsers.Rows.Clear();
+                        LoadUsers();
+                        MessageBox.Show("Usuário removido com sucesso!", "INFO", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    }
                 }
             }
             catch (Exception ex)
