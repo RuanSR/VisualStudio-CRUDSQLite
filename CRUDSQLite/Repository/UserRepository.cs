@@ -3,8 +3,6 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
 
 namespace CRUDSQLite.Classes.DB
 {
@@ -16,40 +14,6 @@ namespace CRUDSQLite.Classes.DB
         private readonly string _strConn = ConfigurationManager.AppSettings["strConnection"];
         private SQLiteCommand cmd;
         private bool tableIsAvailable;
-
-        public DataGridView GetData(DataGridView gridView)
-        {
-            using (SQLiteConnection con = new SQLiteConnection(_strConn))
-            {
-                try
-                {
-                    con.Open();
-                    cmd = new SQLiteCommand();
-                    cmd.CommandText = Query.SelectAll;
-                    cmd.Connection = con;
-                    SQLiteDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        gridView.Rows.Add(new object[]
-                        {
-                            reader.GetValue(reader.GetOrdinal("ID")),
-                            reader.GetValue(reader.GetOrdinal("Nome")),
-                            reader.GetValue(reader.GetOrdinal("Nascimento")),
-                            reader.GetValue(reader.GetOrdinal("RU")),
-                            reader.GetValue(reader.GetOrdinal("Sexo")),
-                            reader.GetValue(reader.GetOrdinal("Obs"))
-                        });
-                    }
-                    con.Close();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Erro em GetData: " + ex.Message);
-                }
-            }
-            return gridView;
-        }
-
         public DataTable GetData()
         {
             try
@@ -72,7 +36,6 @@ namespace CRUDSQLite.Classes.DB
                 throw new Exception("Erro em GetData: " + ex.Message);
             }
         }
-
         public User GetUser(int Id)
         {
             try
@@ -82,19 +45,19 @@ namespace CRUDSQLite.Classes.DB
                     con.Open();
                     cmd = new SQLiteCommand();
                     User userDB = null;
-                    cmd.CommandText = $@"SELECT ID, Nome, Nascimento, RU, Sexo, Obs FROM User Where ID = {Id}";
+                    cmd.CommandText = Query.GetUser(Id);
                     cmd.Connection = con;
                     SQLiteDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         userDB = new User()
                         {
-                            Id = int.Parse(reader.GetInt32(reader.GetOrdinal("ID")).ToString()),
-                            Nome = reader.GetString(reader.GetOrdinal("Nome")),
-                            Nascimento = reader.GetString(reader.GetOrdinal("Nascimento")),
-                            RU = reader.GetString(reader.GetOrdinal("RU")),
-                            Genero = reader.GetString(reader.GetOrdinal("Sexo")),
-                            Obs = reader.GetString(reader.GetOrdinal("Obs"))
+                            Id = int.Parse(reader.GetInt32(reader.GetOrdinal(nameof(User.Id))).ToString()),
+                            Nome = reader.GetString(reader.GetOrdinal(nameof(User.Nome))),
+                            Nascimento = reader.GetString(reader.GetOrdinal(nameof(User.Nascimento))),
+                            RU = reader.GetString(reader.GetOrdinal(nameof(User.RU))),
+                            Genero = reader.GetString(reader.GetOrdinal(nameof(User.Genero))),
+                            Obs = reader.GetString(reader.GetOrdinal(nameof(User.Obs)))
                         };
                     }
                     con.Close();
@@ -116,11 +79,11 @@ namespace CRUDSQLite.Classes.DB
                     cmd = new SQLiteCommand();
                     cmd.Connection = con;
                     cmd.CommandText = Query.Insert;
-                    cmd.Parameters.Add(new SQLiteParameter("nome", user.Nome));
-                    cmd.Parameters.Add(new SQLiteParameter("nascimento", user.Nascimento));
-                    cmd.Parameters.Add(new SQLiteParameter("ru", user.RU));
-                    cmd.Parameters.Add(new SQLiteParameter("sexo", user.Genero));
-                    cmd.Parameters.Add(new SQLiteParameter("obs", user.Obs));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.Nome), user.Nome));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.Nascimento), user.Nascimento));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.RU), user.RU));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.Genero), user.Genero));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.Obs), user.Obs));
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -139,12 +102,12 @@ namespace CRUDSQLite.Classes.DB
                     cmd = new SQLiteCommand();
                     cmd.Connection = con;
                     cmd.CommandText = Query.Update;
-                    cmd.Parameters.Add(new SQLiteParameter("nome", user.Nome));
-                    cmd.Parameters.Add(new SQLiteParameter("nascimento", user.Nascimento));
-                    cmd.Parameters.Add(new SQLiteParameter("ru", user.RU));
-                    cmd.Parameters.Add(new SQLiteParameter("sexo", user.Genero));
-                    cmd.Parameters.Add(new SQLiteParameter("obs", user.Obs));
-                    cmd.Parameters.Add(new SQLiteParameter("id", user.Id));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.Nome), user.Nome));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.Nascimento), user.Nascimento));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.RU), user.RU));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.Genero), user.Genero));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.Obs), user.Obs));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.Id), user.Id));
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -163,7 +126,7 @@ namespace CRUDSQLite.Classes.DB
                     cmd = new SQLiteCommand();
                     cmd.Connection = con;
                     cmd.CommandText = Query.Delete;
-                    cmd.Parameters.Add(new SQLiteParameter("id", id));
+                    cmd.Parameters.Add(new SQLiteParameter(nameof(User.Id), id));
                     cmd.ExecuteNonQuery();
                 }
             }

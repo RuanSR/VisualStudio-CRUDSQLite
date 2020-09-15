@@ -11,13 +11,15 @@ namespace CRUDSQLite
     {
         private readonly UserRepository userRepo;
         private User Usuario { get; set; }
-        //LOAD && CONSTRUTOR\\
+
+        //CONSTRUTOR\\
         public mainForm()
         {
             InitializeComponent();
             userRepo = new UserRepository();
         }
-        //MENUBAR\\
+
+        //CONTROLES\\
         private void SobreMenu_Click(object sender, EventArgs e)
         {
             new AboutBox().ShowDialog();
@@ -35,14 +37,8 @@ namespace CRUDSQLite
             }
             finally
             {
-                Tab1Componnts();
                 Tab2Componets();
             }
-        }
-        //TAB1\\
-        public void Tab1Componnts()
-        {
-            //txtPesquisa = EnableHint(txtPesquisa,"Pesquisar...");
         }
         private void TxtPesquisa_Enter(object sender, EventArgs e)
         {
@@ -50,21 +46,8 @@ namespace CRUDSQLite
         }
         private void TxtPesquisa_Leave(object sender, EventArgs e)
         {
-            Tab1Componnts();
+            
         }
-        //TAB2\\
-        private void Tab2Componets()
-        {
-            txtNome.Text = string.Empty;
-            txtNascimento.Text = string.Empty;
-            txtRU.Text = string.Empty;
-            txtObs.Text = string.Empty;
-            cbSexo.Items.Clear();
-            cbSexo.Items.Add("M");
-            cbSexo.Items.Add("F");
-            Usuario = null;
-        }
-        //UTIL\\
         private void FocusEnter(object sender, EventArgs e)
         {
             //TextBox txt = (TextBox)sender;
@@ -98,26 +81,6 @@ namespace CRUDSQLite
             //        break;
             //}
         }
-        //private TextBox EnableHint(TextBox txt, string hint)
-        //{
-        //    txt.Text = hint;
-        //    txt.ForeColor = Color.Silver;
-        //    return txt;
-        //}
-        //private TextBox DisableHint(TextBox txt)
-        //{
-        //    txt.Text = string.Empty;
-        //    txt.ForeColor = Color.Black;
-        //    return txt;
-        //}
-        //private TextBox VerificaTxt(TextBox txt, string hint)
-        //{
-        //    if (string.IsNullOrEmpty(txt.Text))
-        //    {
-        //        txt = EnableHint(txt, hint);
-        //    }
-        //    return txt;
-        //}
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
             try
@@ -153,12 +116,6 @@ namespace CRUDSQLite
                 MessageBox.Show(ex.Message,"Erro",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
-        private void LoadUsers()
-        {
-            var dados = new UserRepository().GetData();
-            gridViewUsers.DataSource = dados;
-        }
-
         private void gridViewUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -182,7 +139,7 @@ namespace CRUDSQLite
                     {
                         userRepo.DeleteData(Id);
                         LoadUsers();
-                        MessageBox.Show("Usuário removido com sucesso!", "INFO", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        MessageBox.Show("Usuário removido com sucesso!", "INFO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -191,26 +148,6 @@ namespace CRUDSQLite
                 MessageBox.Show($"Erro ao obter usuario! Detalhes: {ex.Message}");
             }
         }
-
-        private void EditarUsuario(User user)
-        {
-            txtNome.Text = user.Nome;
-            txtNascimento.Text = user.Nascimento;
-            txtRU.Text = user.RU;
-            cbSexo.SelectedItem = user.Genero;
-            txtObs.Text = user.Obs;
-            tabControl1.SelectedIndex = 1;
-        }
-
-        private void UpdateUsuario()
-        {
-            Usuario.Nome = txtNome.Text;
-            Usuario.Nascimento = txtNascimento.Text;
-            Usuario.RU = txtRU.Text;
-            Usuario.Genero = cbSexo.Text;
-            Usuario.Obs = txtObs.Text;
-        }
-
         private void gridViewUsers_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -231,10 +168,43 @@ namespace CRUDSQLite
                 MessageBox.Show($"Erro ao entrar na conta! Detalhes: {ex.Message}");
             }
         }
-
         private void btnNovo_Click(object sender, EventArgs e)
         {
             Tab2Componets();
+        }
+        //METODOS\\
+        private void LoadUsers()
+        {
+            var dados = new UserRepository().GetData();
+            gridViewUsers.DataSource = dados;
+        }
+        private void EditarUsuario(User user)
+        {
+            txtNome.Text = user.Nome;
+            txtNascimento.Text = user.Nascimento;
+            txtRU.Text = user.RU;
+            cbSexo.SelectedItem = user.Genero;
+            txtObs.Text = user.Obs;
+            tabControl1.SelectedIndex = 1;
+        }
+        private void Tab2Componets()
+        {
+            txtNome.Text = string.Empty;
+            txtNascimento.Text = string.Empty;
+            txtRU.Text = string.Empty;
+            txtObs.Text = string.Empty;
+            cbSexo.Items.Clear();
+            cbSexo.Items.Add("M");
+            cbSexo.Items.Add("F");
+            Usuario = null;
+        }
+        private void UpdateUsuario()
+        {
+            Usuario.Nome = txtNome.Text;
+            Usuario.Nascimento = txtNascimento.Text;
+            Usuario.RU = txtRU.Text;
+            Usuario.Genero = cbSexo.Text;
+            Usuario.Obs = txtObs.Text;
         }
     }
 }
